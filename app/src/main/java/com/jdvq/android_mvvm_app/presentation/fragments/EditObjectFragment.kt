@@ -64,9 +64,10 @@ class EditObjectFragment : BaseFragment() {
             binding.descriptionEditText.setText(viewModel.objectModel.value!!.description)
             binding.typeEditText.setText(viewModel.objectModel.value!!.type)
             viewModel.getRelation(objectModel)
-            viewModel.relationAdapter = RelationAdapter(viewModel, objectModel, GlobalVariables.relations) {
+            viewModel.relationAdapter =
+                RelationAdapter(viewModel, objectModel, GlobalVariables.relations) {
 
-            }
+                }
             viewModel.relationAdapter.updateRelations(GlobalVariables.relations)
             binding.relationsRecyclerView.apply {
                 adapter = viewModel.relationAdapter
@@ -151,7 +152,7 @@ class EditObjectFragment : BaseFragment() {
         binding.saveButton.setOnClickListener {
             saveObject()
         }
-        binding.addRelations.setOnClickListener{
+        binding.addRelations.setOnClickListener {
             val dialog = SelectChildDialogFragment()
             dialog.onChildSelected = { selectedChild ->
                 val parentId = viewModel.objectModel.value?.id ?: 0

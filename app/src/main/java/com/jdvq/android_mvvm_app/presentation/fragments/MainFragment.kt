@@ -86,6 +86,7 @@ class MainFragment : BaseFragment() {
                 showExitDialog(requireActivity(), getString(R.string.title_exit_app))
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

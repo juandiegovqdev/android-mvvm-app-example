@@ -18,7 +18,7 @@ fun showDialog(context: Context, title: String, message: String) {
     alertDialog.show()
 }
 
-fun showExitDialog(context: Context, title:String) {
+fun showExitDialog(context: Context, title: String) {
     val alertDialog: AlertDialog = AlertDialog.Builder(context).create()
     alertDialog.setTitle(title)
     alertDialog.setButton(

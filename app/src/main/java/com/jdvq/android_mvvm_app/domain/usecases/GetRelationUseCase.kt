@@ -2,9 +2,7 @@ package com.jdvq.android_mvvm_app.domain.usecases
 
 import android.annotation.SuppressLint
 import com.jdvq.android_mvvm_app.config.GlobalVariables
-import com.jdvq.android_mvvm_app.domain.database.daos.ObjectDao
 import com.jdvq.android_mvvm_app.domain.database.daos.RelationDao
-import com.jdvq.android_mvvm_app.domain.mapper.ObjectMapper
 import com.jdvq.android_mvvm_app.domain.models.ObjectModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -18,7 +16,8 @@ class GetRelationUseCase
     suspend operator fun invoke(objectModel: ObjectModel) {
         return withContext(Dispatchers.IO) {
             GlobalVariables.relations.clear()
-            GlobalVariables.relations = relationDao.getRelationsForObject(objectModel.id).toMutableList()
+            GlobalVariables.relations =
+                relationDao.getRelationsForObject(objectModel.id).toMutableList()
         }
     }
 }

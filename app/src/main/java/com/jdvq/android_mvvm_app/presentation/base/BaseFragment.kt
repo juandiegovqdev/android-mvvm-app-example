@@ -1,13 +1,10 @@
 package com.jdvq.android_mvvm_app.presentation.base
 
-import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.jdvq.android_mvvm_app.R
 
 abstract class BaseFragment : Fragment() {
 
@@ -24,7 +21,6 @@ abstract class BaseFragment : Fragment() {
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
-
 
 
     abstract fun getMenuResourceId(): Int?

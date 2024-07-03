@@ -37,11 +37,11 @@ class SelectChildDialogFragment : DialogFragment() {
         setupObjects()
     }
 
-    private fun setupObjects(){
+    private fun setupObjects() {
         viewModel.loadObjects(GlobalVariables.currentObject.id)
     }
 
-    private fun setupViewModel(){
+    private fun setupViewModel() {
         viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
     }
 
