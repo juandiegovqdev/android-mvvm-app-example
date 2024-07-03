@@ -13,7 +13,7 @@ import com.jdvq.android_mvvm_app.domain.models.ObjectModel
 import com.jdvq.android_mvvm_app.presentation.main.MainViewModel
 
 class RelationAdapter(
-    private val viewModel : MainViewModel,
+    private val viewModel: MainViewModel,
     private val objectModel: ObjectModel,
     private val relations: MutableList<RelationEntity>,
     private val onDeleteClicked: (RelationEntity) -> Unit
