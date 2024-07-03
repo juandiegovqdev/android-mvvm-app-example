@@ -1,4 +1,4 @@
-package com.jdvq.android_mvvm_app
+package com.jdvq.android_mvvm_app.domain.adapters
 
 import android.content.Context
 import android.os.Bundle
@@ -13,6 +13,7 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.jdvq.android_mvvm_app.R
 import com.jdvq.android_mvvm_app.config.GlobalVariables
 import com.jdvq.android_mvvm_app.domain.models.ObjectModel
 import com.jdvq.android_mvvm_app.presentation.fragments.EditObjectFragment

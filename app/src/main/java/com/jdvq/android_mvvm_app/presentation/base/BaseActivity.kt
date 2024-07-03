@@ -9,9 +9,6 @@ import androidx.lifecycle.lifecycleScope
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    val coroutineScope = lifecycleScope
-    val handler = Handler(Looper.getMainLooper())
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)

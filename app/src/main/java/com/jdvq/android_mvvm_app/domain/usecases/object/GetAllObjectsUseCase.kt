@@ -1,4 +1,4 @@
-package com.jdvq.android_mvvm_app.domain.usecases
+package com.jdvq.android_mvvm_app.domain.usecases.`object`
 
 import android.annotation.SuppressLint
 import com.jdvq.android_mvvm_app.config.GlobalVariables
@@ -8,15 +8,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class CreateObjectUseCase
-@Inject
-constructor(
+class GetAllObjectsUseCase
+@Inject constructor(
     private val objectDao: ObjectDao
 ) {
     @SuppressLint("Recycle")
     suspend operator fun invoke() {
         return withContext(Dispatchers.IO) {
-            objectDao.insert(ObjectMapper().mapToEntity(GlobalVariables.currentObject))
+            GlobalVariables.objects.clear()
+            GlobalVariables.objects.addAll(ObjectMapper().mapListToDomainModels(objectDao.getAll()))
         }
     }
 }

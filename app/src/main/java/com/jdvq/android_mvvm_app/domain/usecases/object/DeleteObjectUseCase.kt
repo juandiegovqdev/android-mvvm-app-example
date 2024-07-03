@@ -1,4 +1,4 @@
-package com.jdvq.android_mvvm_app.domain.usecases
+package com.jdvq.android_mvvm_app.domain.usecases.`object`
 
 import android.annotation.SuppressLint
 import com.jdvq.android_mvvm_app.domain.database.daos.ObjectDao

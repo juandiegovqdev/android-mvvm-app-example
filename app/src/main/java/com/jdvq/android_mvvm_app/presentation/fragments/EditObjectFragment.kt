@@ -9,10 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jdvq.android_mvvm_app.R
-import com.jdvq.android_mvvm_app.RelationAdapter
+import com.jdvq.android_mvvm_app.config.Constants
 import com.jdvq.android_mvvm_app.config.GlobalVariables
 import com.jdvq.android_mvvm_app.databinding.FragmentEditObjectBinding
-import com.jdvq.android_mvvm_app.domain.entities.RelationEntity
+import com.jdvq.android_mvvm_app.domain.adapters.RelationAdapter
 import com.jdvq.android_mvvm_app.domain.models.ObjectModel
 import com.jdvq.android_mvvm_app.presentation.base.BaseFragment
 import com.jdvq.android_mvvm_app.presentation.dialog.SelectChildDialogFragment
@@ -54,8 +54,12 @@ class EditObjectFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         setupViewModels()
         setupListeners()
+        setupAvailableObject()
+    }
 
-        val objectModel = arguments?.getParcelable<ObjectModel>("objectModel")
+
+    private fun setupAvailableObject() {
+        val objectModel = arguments?.getParcelable<ObjectModel>(Constants.OBJECTMODEL_KEY)
         if (objectModel != null) {
             viewModel.setObjectModel(objectModel)
             viewModel.getRelation(objectModel)
@@ -63,11 +67,8 @@ class EditObjectFragment : BaseFragment() {
             binding.nameEditText.setText(viewModel.objectModel.value!!.name)
             binding.descriptionEditText.setText(viewModel.objectModel.value!!.description)
             binding.typeEditText.setText(viewModel.objectModel.value!!.type)
-            viewModel.getRelation(objectModel)
             viewModel.relationAdapter =
-                RelationAdapter(viewModel, objectModel, GlobalVariables.relations) {
-
-                }
+                RelationAdapter(viewModel, objectModel, GlobalVariables.relations) {}
             viewModel.relationAdapter.updateRelations(GlobalVariables.relations)
             binding.relationsRecyclerView.apply {
                 adapter = viewModel.relationAdapter
@@ -155,10 +156,7 @@ class EditObjectFragment : BaseFragment() {
         binding.addRelations.setOnClickListener {
             val dialog = SelectChildDialogFragment()
             dialog.onChildSelected = { selectedChild ->
-                val parentId = viewModel.objectModel.value?.id ?: 0
-                val newRelation = RelationEntity(parentId = parentId, childId = selectedChild.id)
-                viewModel.insertRelation(newRelation)
-                viewModel.relationAdapter.updateRelations(GlobalVariables.relations)
+                viewModel.onDialogChildSelected(selectedChild)
             }
             dialog.show(parentFragmentManager, "SelectChildDialogFragment")
         }

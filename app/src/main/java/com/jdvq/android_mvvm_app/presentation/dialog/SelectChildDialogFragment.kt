@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jdvq.android_mvvm_app.ObjectAdapter
+import com.jdvq.android_mvvm_app.domain.adapters.ObjectAdapter
 import com.jdvq.android_mvvm_app.config.GlobalVariables
 import com.jdvq.android_mvvm_app.databinding.DialogSelectChildBinding
 import com.jdvq.android_mvvm_app.domain.models.ObjectModel

@@ -1,4 +1,4 @@
-package com.jdvq.android_mvvm_app
+package com.jdvq.android_mvvm_app.domain.adapters
 
 
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.jdvq.android_mvvm_app.R
 import com.jdvq.android_mvvm_app.config.GlobalVariables
 import com.jdvq.android_mvvm_app.domain.entities.RelationEntity
 import com.jdvq.android_mvvm_app.domain.models.ObjectModel

@@ -22,6 +22,5 @@ abstract class BaseFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-
     abstract fun getMenuResourceId(): Int?
 }

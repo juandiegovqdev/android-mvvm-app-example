@@ -1,19 +1,22 @@
 package com.jdvq.android_mvvm_app.presentation.main
 
+import android.content.Context
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jdvq.android_mvvm_app.RelationAdapter
 import com.jdvq.android_mvvm_app.config.GlobalVariables
+import com.jdvq.android_mvvm_app.domain.adapters.ObjectAdapter
+import com.jdvq.android_mvvm_app.domain.adapters.RelationAdapter
 import com.jdvq.android_mvvm_app.domain.entities.RelationEntity
 import com.jdvq.android_mvvm_app.domain.models.ObjectModel
-import com.jdvq.android_mvvm_app.domain.usecases.CreateObjectUseCase
-import com.jdvq.android_mvvm_app.domain.usecases.DeleteObjectUseCase
-import com.jdvq.android_mvvm_app.domain.usecases.DeleteRelationUseCase
-import com.jdvq.android_mvvm_app.domain.usecases.GetAllObjectsUseCase
-import com.jdvq.android_mvvm_app.domain.usecases.GetRelationUseCase
-import com.jdvq.android_mvvm_app.domain.usecases.InsertRelationUseCase
+import com.jdvq.android_mvvm_app.domain.usecases.`object`.CreateObjectUseCase
+import com.jdvq.android_mvvm_app.domain.usecases.`object`.DeleteObjectUseCase
+import com.jdvq.android_mvvm_app.domain.usecases.`object`.GetAllObjectsUseCase
+import com.jdvq.android_mvvm_app.domain.usecases.relations.DeleteRelationUseCase
+import com.jdvq.android_mvvm_app.domain.usecases.relations.GetRelationUseCase
+import com.jdvq.android_mvvm_app.domain.usecases.relations.InsertRelationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,6 +32,7 @@ class MainViewModel
     private val getRelationUseCase: GetRelationUseCase
 ) : ViewModel() {
 
+    lateinit var objectAdapter: ObjectAdapter
     lateinit var relationAdapter: RelationAdapter
     private val _objectModel = MutableLiveData<ObjectModel>()
     val objectModel: LiveData<ObjectModel> get() = _objectModel
@@ -67,10 +71,23 @@ class MainViewModel
         }
     }
 
-    fun insertRelation(relationEntity: RelationEntity) {
+    fun onDialogChildSelected(selectedChild: ObjectModel) {
+        val parentId = objectModel.value?.id ?: 0
+        val newRelation = RelationEntity(parentId = parentId, childId = selectedChild.id)
+        insertRelation(newRelation)
+        relationAdapter.updateRelations(GlobalVariables.relations)
+    }
+
+    private fun insertRelation(relationEntity: RelationEntity) {
         viewModelScope.launch {
             insertRelationUseCase.invoke(relationEntity)
         }
+    }
+
+    fun setupObjectAdapter(context: Context, activity: FragmentActivity) {
+        getAllObject()
+        objectAdapter = ObjectAdapter(context, this, activity)
+        objectAdapter.setObjects(GlobalVariables.objects)
     }
 
     fun loadObjects(excludeObjectId: Long): List<ObjectModel> {
